@@ -63,21 +63,6 @@ For a one-off profile installation, the equivalent package transformation is:
 guix install --with-input=librime=librime-with-plugins fcitx5-rime
 ```
 
-When using this repository directly without first adding it as a channel, add
-the module load path:
-
-```sh
-guix install -L modules \
-  --with-input=librime=librime-with-plugins \
-  fcitx5-rime
-```
-
-Both forms rebuild `fcitx5-rime` against
-`librime-with-plugins`; installing `librime-with-plugins` separately would not
-replace the immutable store reference in the upstream `fcitx5-rime` package.
-The Octagram plugin does not include a language model data file.  Install the
-model required by the selected Rime schema separately.
-
 ### virtiofsd
 
 Install the daemon in a profile with:

@@ -31,8 +31,33 @@ checkout can be used with `guix pull -C channels.scm`.
 
 `librime-with-plugins` is compatible with the upstream `librime` package and
 adds the `librime-lua` scripting plugin and the `librime-octagram` language
-model plugin.  To rebuild `fcitx5-rime` with this librime variant and install
-the result, run:
+model plugin.
+
+For a declarative Guix Home or Guix System configuration, rewrite the
+`librime` input of `fcitx5-rime` and add the resulting package to the
+configuration's `packages` field:
+
+```scheme
+(use-modules (gnu packages fcitx5)
+             (gnu packages ibus)
+             (guix packages)
+             (sorubedo packages input-methods))
+
+(define fcitx5-rime-with-plugins
+  ((package-input-rewriting
+    `((,librime . ,librime-with-plugins)))
+   fcitx5-rime))
+
+;; Use this package object in home-environment or operating-system.
+(packages
+ (list fcitx5-rime-with-plugins))
+```
+
+When extending an existing package list, use `cons` or `append` instead of
+replacing that list, for example `(cons fcitx5-rime-with-plugins
+%base-packages)` in an `operating-system` declaration.
+
+For a one-off profile installation, the equivalent package transformation is:
 
 ```sh
 guix install --with-input=librime=librime-with-plugins fcitx5-rime
@@ -47,7 +72,7 @@ guix install -L modules \
   fcitx5-rime
 ```
 
-The input transformation rebuilds `fcitx5-rime` against
+Both forms rebuild `fcitx5-rime` against
 `librime-with-plugins`; installing `librime-with-plugins` separately would not
 replace the immutable store reference in the upstream `fcitx5-rime` package.
 The Octagram plugin does not include a language model data file.  Install the

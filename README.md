@@ -27,6 +27,32 @@ checkout can be used with `guix pull -C channels.scm`.
 
 ## Packages and services
 
+### librime with Lua and Octagram plugins
+
+`librime-with-plugins` is compatible with the upstream `librime` package and
+adds the `librime-lua` scripting plugin and the `librime-octagram` language
+model plugin.  To rebuild `fcitx5-rime` with this librime variant and install
+the result, run:
+
+```sh
+guix install --with-input=librime=librime-with-plugins fcitx5-rime
+```
+
+When using this repository directly without first adding it as a channel, add
+the module load path:
+
+```sh
+guix install -L modules \
+  --with-input=librime=librime-with-plugins \
+  fcitx5-rime
+```
+
+The input transformation rebuilds `fcitx5-rime` against
+`librime-with-plugins`; installing `librime-with-plugins` separately would not
+replace the immutable store reference in the upstream `fcitx5-rime` package.
+The Octagram plugin does not include a language model data file.  Install the
+model required by the selected Rime schema separately.
+
 ### virtiofsd
 
 Install the daemon in a profile with:
@@ -49,18 +75,3 @@ profile and exposes its vhost-user metadata at
         (service virtiofsd-service-type)
         %base-services))
 ```
-
-## Development
-
-Package modules are grouped by domain under `modules/sorubedo/packages/`, while
-service modules live under `modules/sorubedo/services/`.  Test definitions from
-the checkout with:
-
-```sh
-guix build -L modules virtiofsd
-guix shell -L modules virtiofsd
-```
-
-The generated Cargo dependency set for `virtiofsd` is kept in
-`modules/sorubedo/packages/rust-crates.scm`.  Refresh it from the upstream
-`Cargo.lock` whenever the application is updated.

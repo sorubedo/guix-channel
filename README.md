@@ -21,9 +21,6 @@ Then update Guix:
 guix pull
 ```
 
-The repository also provides this configuration as `channels.scm`, so a fresh
-checkout can be used with `guix pull -C channels.scm`.
-
 ## Packages and services
 
 ### librime with Lua and Octagram plugins

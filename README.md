@@ -9,11 +9,10 @@ may change as the channel evolves.
 Add the following entry to `~/.config/guix/channels.scm`:
 
 ```scheme
-(cons* (channel
+(channel
          (name 'sorubedo)
          (url "https://github.com/sorubedo/guix-channel.git")
          (branch "main"))
-       %default-channels)
 ```
 
 Then update Guix:

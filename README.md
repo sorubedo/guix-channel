@@ -10,9 +10,9 @@ Add the following entry to `~/.config/guix/channels.scm`:
 
 ```scheme
 (channel
-         (name 'sorubedo)
-         (url "https://github.com/sorubedo/guix-channel.git")
-         (branch "main"))
+ (name 'sorubedo)
+ (url "https://github.com/sorubedo/guix-channel.git")
+ (branch "main"))
 ```
 
 Then update Guix:

@@ -1,35 +1,43 @@
 # sorubedo Guix channel
 
-This repository is a Guix channel. Package modules live under
-`modules/sorubedo/`.
+This is a personal [Guix channel](https://guix.gnu.org/manual/en/html_node/Channels.html)
+for packages and services that are not yet available in Guix proper.  Definitions
+may change as the channel evolves.
 
-## Use the local channel
+## Add the channel
 
-The included `channels.scm` points to this checkout:
+Add the following entry to `~/.config/guix/channels.scm`:
 
-```sh
-guix pull -C channels.scm
+```scheme
+(cons* (channel
+         (name 'sorubedo)
+         (url "https://github.com/sorubedo/guix-channel.git")
+         (branch "main"))
+       %default-channels)
 ```
 
-After publishing the repository, replace the local `file://` URL in your
-personal channels file with the public Git URL.
-
-## Develop packages
-
-Load package definitions directly from the checkout while developing:
+Then update Guix:
 
 ```sh
-guix build -L modules PACKAGE
-guix shell -L modules PACKAGE
+guix pull
 ```
 
-Add package definitions to `modules/sorubedo/packages.scm`, or create modules
-such as `modules/sorubedo/packages/example.scm`.
+The repository also provides this configuration as `channels.scm`, so a fresh
+checkout can be used with `guix pull -C channels.scm`.
 
-## virtiofsd
+## Packages and services
 
-On Guix System, add both the libvirt service and this channel's integration
-service:
+### virtiofsd
+
+Install the daemon in a profile with:
+
+```sh
+guix install virtiofsd
+```
+
+On Guix System, the accompanying service installs `virtiofsd` in the system
+profile and exposes its vhost-user metadata at
+`/etc/qemu/vhost-user/50-virtiofsd.json`, where libvirt can discover it:
 
 ```scheme
 (use-modules (gnu services base)
@@ -42,6 +50,17 @@ service:
         %base-services))
 ```
 
-`virtiofsd-service-type` installs the package in the system profile and exposes
-its vhost-user metadata as `/etc/qemu/vhost-user/50-virtiofsd.json`.  This is
-the location used by libvirt to discover and launch the daemon on demand.
+## Development
+
+Package modules are grouped by domain under `modules/sorubedo/packages/`, while
+service modules live under `modules/sorubedo/services/`.  Test definitions from
+the checkout with:
+
+```sh
+guix build -L modules virtiofsd
+guix shell -L modules virtiofsd
+```
+
+The generated Cargo dependency set for `virtiofsd` is kept in
+`modules/sorubedo/packages/rust-crates.scm`.  Refresh it from the upstream
+`Cargo.lock` whenever the application is updated.

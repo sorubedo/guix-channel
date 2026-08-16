@@ -1,4 +1,4 @@
-(define-module (sorubedo rust-crates)
+(define-module (sorubedo packages rust-crates)
   #:use-module (guix build-system cargo)
   #:use-module (gnu packages rust-crates)
   #:export (lookup-cargo-inputs))

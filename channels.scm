@@ -1,5 +1,5 @@
 (cons* (channel
          (name 'sorubedo)
-         (url "file:///home/sorubedo/guix-channel")
+         (url "https://github.com/sorubedo/guix-channel.git")
          (branch "main"))
        %default-channels)

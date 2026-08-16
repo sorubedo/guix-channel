@@ -1,7 +1,7 @@
 (define-module (sorubedo services virtualization)
   #:use-module (gnu services)
   #:use-module (guix gexp)
-  #:use-module (sorubedo packages)
+  #:use-module (sorubedo packages virtualization)
   #:export (virtiofsd-service-type))
 
 (define (virtiofsd-etc-files package)

@@ -81,3 +81,16 @@ profile and exposes its vhost-user metadata at
         (service virtiofsd-service-type)
         %base-services))
 ```
+
+### Sunshine beta
+
+`sunshine-beta` packages a pinned upstream pre-release of the Sunshine game
+streaming host, including its web interface:
+
+```sh
+guix install sunshine-beta
+```
+
+The installed executable remains `sunshine`.  The package currently supports
+`x86_64-linux`, matching the architecture of the upstream FFmpeg build used by
+Sunshine.

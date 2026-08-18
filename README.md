@@ -99,3 +99,12 @@ profile and exposes its vhost-user metadata at
  (cons (udev-rules-service 'sunshine sunshine-beta)
        %base-services))
 ```
+
+### wayvnc
+
+```scheme
+(use-modules (sorubedo packages vnc))
+
+(packages
+ (cons wayvnc %base-packages))
+```

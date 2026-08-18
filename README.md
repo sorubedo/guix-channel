@@ -84,22 +84,12 @@ profile and exposes its vhost-user metadata at
 
 ### Sunshine beta
 
-`sunshine-beta` packages a pinned upstream pre-release of the Sunshine game
-streaming host, including its web interface and udev rules.  The installed
-executable remains `sunshine`.
-
-Add it to your Guix System package list instead of installing it imperatively:
-
 ```scheme
 (use-modules (sorubedo packages video))
 
 (packages
  (cons sunshine-beta %base-packages))
 ```
-
-Sunshine needs access to `/dev/uinput` and `/dev/uhid` to create virtual
-keyboard, mouse, and gamepad devices.  On Guix System, install the udev rules
-bundled with the package:
 
 ```scheme
 (use-modules (gnu services base)
@@ -109,9 +99,3 @@ bundled with the package:
  (cons (udev-rules-service 'sunshine sunshine-beta)
        %base-services))
 ```
-
-The rules grant access through the `input` group, which is already provided by
-`%base-groups`.  As with the `librime` example above, prefer `cons` or
-`append` when extending existing package or service lists.  The package
-currently supports `x86_64-linux`, matching the architecture of the upstream
-FFmpeg build used by Sunshine.

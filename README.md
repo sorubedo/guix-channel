@@ -23,6 +23,11 @@ guix pull
 
 ## Packages and services
 
+| Variable | Specification | Export location |
+|---|---|---|
+| `steamguard-cli` | `steamguard-cli` | `(sorubedo packages tools)` |
+| `wayvnc` | `wayvnc` | `(sorubedo packages vnc)` |
+
 ### librime with Lua and Octagram plugins
 
 `librime-with-plugins` is compatible with the upstream `librime` package and
@@ -98,13 +103,4 @@ profile and exposes its vhost-user metadata at
 (services
  (cons (udev-rules-service 'sunshine sunshine-beta)
        %base-services))
-```
-
-### wayvnc
-
-```scheme
-(use-modules (sorubedo packages vnc))
-
-(packages
- (cons wayvnc %base-packages))
 ```

@@ -22,7 +22,8 @@
          "1f1a971gmchvwnl6rx5640jk2gf3bshvdx6ic3ada01lqxb0afff"))))
     (build-system cargo-build-system)
     (arguments
-     (list #:install-source? #f))
+     (list #:install-source? #f
+           #:cargo-install-paths ''(".")))
     (inputs
      (cargo-inputs 'steamguard-cli
                    #:module '(sorubedo packages rust-crates)))

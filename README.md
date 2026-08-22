@@ -4,6 +4,13 @@ This is a personal [Guix channel](https://guix.gnu.org/manual/en/html_node/Chann
 for packages and services that are not yet available in Guix proper.  Definitions
 may change as the channel evolves.
 
+## Disclaimer
+
+Packages in this channel are primarily produced by LLM and may be incorrectly
+packaged or have oversized or incomplete closures.  GPG signing is knowingly
+not configured.  This channel is for personal development use; use at your own
+risk.
+
 ## Add the channel
 
 Add the following entry to `~/.config/guix/channels.scm`:

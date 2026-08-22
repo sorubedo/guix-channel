@@ -25,8 +25,17 @@ guix pull
 
 | Variable | Specification | Export location |
 |---|---|---|
+| `netease-cloud-music-gtk` | `netease-cloud-music-gtk` | `(sorubedo packages music)` |
 | `steamguard-cli` | `steamguard-cli` | `(sorubedo packages tools)` |
 | `wayvnc` | `wayvnc` | `(sorubedo packages vnc)` |
+
+### NetEase Cloud Music GTK
+
+Install the GTK 4 client and its GStreamer codec plugins with:
+
+```sh
+guix install netease-cloud-music-gtk
+```
 
 ### librime with Lua and Octagram plugins
 

@@ -36,14 +36,6 @@ guix pull
 | `steamguard-cli` | `steamguard-cli` | `(sorubedo packages tools)` |
 | `wayvnc` | `wayvnc` | `(sorubedo packages vnc)` |
 
-### NetEase Cloud Music GTK
-
-Install the GTK 4 client and its GStreamer codec plugins with:
-
-```sh
-guix install netease-cloud-music-gtk
-```
-
 ### librime with Lua and Octagram plugins
 
 `librime-with-plugins` is compatible with the upstream `librime` package and
@@ -65,32 +57,11 @@ configuration's `packages` field:
     `((,librime . ,librime-with-plugins)))
    fcitx5-rime))
 
-;; Use this package object in home-environment or operating-system.
 (packages
  (list fcitx5-rime-with-plugins))
 ```
 
-When extending an existing package list, use `cons` or `append` instead of
-replacing that list, for example `(cons fcitx5-rime-with-plugins
-%base-packages)` in an `operating-system` declaration.
-
-For a one-off profile installation, the equivalent package transformation is:
-
-```sh
-guix install --with-input=librime=librime-with-plugins fcitx5-rime
-```
-
 ### virtiofsd
-
-Install the daemon in a profile with:
-
-```sh
-guix install virtiofsd
-```
-
-On Guix System, the accompanying service installs `virtiofsd` in the system
-profile and exposes its vhost-user metadata at
-`/etc/qemu/vhost-user/50-virtiofsd.json`, where libvirt can discover it:
 
 ```scheme
 (use-modules (gnu services base)
@@ -103,18 +74,16 @@ profile and exposes its vhost-user metadata at
         %base-services))
 ```
 
+It will exposes its vhost-user metadata at /etc/qemu/vhost-user/50-virtiofsd.json, where libvirt can discover it:
+
 ### Sunshine beta
-
-```scheme
-(use-modules (sorubedo packages video))
-
-(packages
- (cons sunshine-beta %base-packages))
-```
 
 ```scheme
 (use-modules (gnu services base)
              (sorubedo packages video))
+
+(packages
+ (cons sunshine-beta %base-packages))
 
 (services
  (cons (udev-rules-service 'sunshine sunshine-beta)
